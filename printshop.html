@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Shop - Order Dashboard</title>
+    <!-- PeerJS Library -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <!-- Tailwind CSS (or your preferred styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Modak&family=Monofett&family=Baumans&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Baumans', sans-serif; }
+        h1, h2, h3 { font-family: 'Modak', cursive; }
+        .status-dot {
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .status-connected { background-color: #4CAF50; /* Green */ }
+        .status-disconnected { background-color: #F44336; /* Red */ }
+        .status-pending { background-color: #FFC107; /* Amber */ }
+        .order-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .order-card img.sticker-design {
+            max-width: 200px;
+            max-height: 200px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+        .order-details dt { font-weight: bold; }
+        .order-details dd { margin-left: 0; margin-bottom: 0.5em; }
+        /* Style for API Key input section */
+        .api-key-section {
+            background-color: #fff3cd; /* Light yellow warning-like background */
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .api-key-section label {
+            font-weight: bold;
+            color: #856404; /* Dark yellow text */
+        }
+        .api-key-section input[type="password"] {
+            border-color: #856404;
+        }
+        .api-key-section p {
+            font-size: 0.8rem;
+            color: #856404;
+        }
+    </style>
+    <!-- Link to printshop.js (we'll create this next) -->
+    <script type="module" src="./printshop.js" defer></script>
+</head>
+<body class="bg-slate-200 text-slate-800 p-4 md:p-8">
+    <div class="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl text-splotch-navy">Print Shop - Order Dashboard</h1>
+        </header>
+
+        <section id="peer-status-section" class="mb-6 p-4 border border-splotch-teal rounded-md bg-slate-50">
+            <h2 class="text-2xl text-splotch-navy mb-2">Connection Status</h2>
+            <div class="flex items-center">
+                <span id="connection-status-dot" class="status-dot status-disconnected"></span>
+                <p id="peer-id-display" class="text-lg">Peer ID: <span class="font-semibold text-splotch-red">Initializing...</span></p>
+            </div>
+            <p id="peer-connection-message" class="mt-2 text-sm text-gray-600">Attempting to connect to PeerJS network...</p>
+            <div>
+                <label for="shopPeerIdInput" class="block text-sm font-medium mt-2">Set Shop Peer ID (if blank, one will be generated):</label>
+                <div class="flex items-center space-x-2 mt-1">
+                    <input type="text" id="shopPeerIdInput" placeholder="Enter desired Peer ID (e.g., printshop01)" class="input border-gray-300 rounded-md shadow-sm p-2 flex-grow">
+                    <button id="setPeerIdBtn" class="bg-splotch-teal text-white py-2 px-4 rounded-md hover:bg-splotch-navy">Set/Refresh ID</button>
+                </div>
+                 <p class="text-xs text-gray-500 mt-1">This ID must be configured in the customer-facing website's JavaScript.</p>
+            </div>
+        </section>
+
+        <!-- NEW: Square API Key Input Section -->
+        <section class="api-key-section mb-6">
+            <label for="squareApiKeyInput" class="block text-sm mb-1">Square Secret API Key (Enter each session):</label>
+            <input type="password" id="squareApiKeyInput" placeholder="Paste your Square Secret API Key here" class="input w-full p-2 border rounded-md shadow-sm">
+            <p class="mt-1">This key is used to process payments and is NOT stored after you close this page. Ensure this page is run in a secure environment.</p>
+        </section>
+        <!-- END NEW SECTION -->
+
+
+        <section id="incoming-orders-section">
+            <h2 class="text-3xl text-splotch-navy mb-4">Incoming Orders</h2>
+            <div id="orders-list" class="space-y-4">
+                <p id="no-orders-message" class="text-gray-500 italic">No new orders yet. Waiting for connections...</p>
+                <!-- Order cards will be dynamically inserted here by printshop.js -->
+            </div>
+        </section>
+    </div>
+</body>
+</html>
