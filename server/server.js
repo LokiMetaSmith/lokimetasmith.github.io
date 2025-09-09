@@ -1057,7 +1057,7 @@ ${statusChecklist}
     }
     
     // Return the app and the timers so they can be managed by the caller
-    return { app, timers: [sessionTokenTimer, keyRotationTimer] };
+    return { app, timers: [sessionTokenTimer, keyRotationTimer], bot };
     
   } catch (error) {
     await logAndEmailError(error, 'FATAL: Failed to start server');

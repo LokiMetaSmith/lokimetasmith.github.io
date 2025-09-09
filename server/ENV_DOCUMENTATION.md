@@ -33,6 +33,10 @@ This document explains the environment variables used in this project. These var
 -   `TELEGRAM_BOT_TOKEN`: The token for your Telegram bot. The bot is used to send notifications about new orders and order status updates.
 -   `TELEGRAM_CHANNEL_ID`: The ID of the Telegram channel where the bot will send messages.
 
+## Shipment Tracking
+
+-   `EASYPOST_API_KEY`: Your API key from [EasyPost](https://www.easypost.com/). This is required to enable automatic shipment tracking, which updates an order's status to "DELIVERED" when the package arrives. If this key is not provided, the shipment tracking feature will be disabled.
+
 ## Security and Session Management
 
 -   `SESSION_SECRET`: A secret key for signing the session ID cookie.

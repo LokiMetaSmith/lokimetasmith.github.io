@@ -6,6 +6,7 @@ export default {
   moduleNameMapper: {
     '^@mattkrick/sanitize-svg$': '<rootDir>/tests/fileMock.js',
     '^jsdom$': '<rootDir>/tests/jsdomMock.js',
-    '^telegraf$': '<rootDir>/tests/telegrafMock.js'
+    '^telegraf$': '<rootDir>/tests/telegrafMock.js',
+    '^@easypost/api$': '<rootDir>/tests/fileMock.js'
   },
 };

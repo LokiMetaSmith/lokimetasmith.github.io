@@ -13,4 +13,7 @@ export class Telegraf {
     editMessageText: jest.fn(),
     deleteMessage: jest.fn(),
   };
+
+  launch = jest.fn();
+  stop = jest.fn();
 }
